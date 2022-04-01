@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vishee.arcface.mapper.FaceMapper">
+
+
+    <insert id="insert" parameterType="map">
+        INSERT INTO `face` (`faceid`, `name`) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id}, #{item.name})
+        </foreach>
+
+    </insert>
+
+    <insert id="insertBlob" parameterType="map">
+        INSERT INTO `arcface` ( `name`,`data`) VALUES
+        <foreach collection="list" item="item" separator=",">
+            ( #{item.name},#{item.data})
+        </foreach>
+    </insert>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(faceid)
+        from arcface
+    </select>
+
+    <select id="list" resultType="map">
+        select faceid as id, `name` as tag, `data`
+        from arcface
+    </select>
+</mapper>
